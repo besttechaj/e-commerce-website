@@ -9,7 +9,15 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
+import { CartState } from '../context/Context';
+import { AiFillDelete } from 'react-icons/ai';
+
 const Header = () => {
+  //destructuring and consuming the data after providing using CartState function which has useContext() inside it.
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
   return (
     <Navbar
       bg='dark'
@@ -36,9 +44,40 @@ const Header = () => {
             <Dropdown.Toggle variant='success'>
               <FaShoppingCart color='white' fontSize='25px' />
 
-              <Badge className='ml-2'>{0}</Badge>
-              <Dropdown.Menu style={{ minWidth: 370 }}>
-                <span style={{ padding: 10 }}>Cart is Empty!</span>
+              <Badge className='ml-2'>{cart.length}</Badge>
+              <Dropdown.Menu
+                style={{ minWidth: 370 }}
+                className='dropdown-menu-right'
+              >
+                {cart.length > 0 ? (
+                  <>
+                    {cart.map((prod) => (
+                      <span className='cartitem' key={prod.id}>
+                        <img
+                          src={prod.image}
+                          alt={prod.name}
+                          className='cartItemImg'
+                        />
+                        <div className='cartItemDetail'>
+                          <span>{prod.name}</span>
+                          <span>${prod.price.split('.')[0]}</span>
+                        </div>
+                        <AiFillDelete
+                          fontSize='20px'
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => {
+                            dispatch({
+                              type: 'REMOVE_FROM_CART',
+                              payload: prod,
+                            });
+                          }}
+                        />
+                      </span>
+                    ))}
+                  </>
+                ) : (
+                  <span style={{ padding: 10 }}>Cart is Empty!</span>
+                )}
               </Dropdown.Menu>
             </Dropdown.Toggle>
           </Dropdown>
