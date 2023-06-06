@@ -6,6 +6,7 @@ import {
   Dropdown,
   Nav,
   Badge,
+  Button,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -46,7 +47,11 @@ const Header = () => {
 
               <Badge className='ml-2'>{cart.length}</Badge>
               <Dropdown.Menu
-                style={{ minWidth: 370 }}
+                style={{
+                  minWidth: 370,
+                  backgroundColor: '#343a40',
+                  color: 'white',
+                }}
                 className='dropdown-menu-right'
               >
                 {cart.length > 0 ? (
@@ -74,6 +79,16 @@ const Header = () => {
                         />
                       </span>
                     ))}
+                    <Link to='/cart'>
+                      <Button
+                        style={{
+                          width: '100%',
+                          marginBottom: '0px',
+                        }}
+                      >
+                        Go to Cart
+                      </Button>
+                    </Link>
                   </>
                 ) : (
                   <span style={{ padding: 10 }}>Cart is Empty!</span>
