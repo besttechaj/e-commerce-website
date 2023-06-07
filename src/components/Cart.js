@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CartState } from '../context/Context';
-import { Button, ListGroup } from 'react-bootstrap';
+import { Button, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
+import Rating from '../components/Rating';
+import { AiFillDelete } from 'react-icons/ai';
 const Cart = () => {
   //destructuring and consuming the data after providing using CartState function which has useContext() inside it.
   const {
@@ -20,7 +22,8 @@ const Cart = () => {
           //here accumulator is used to store the result hence declaring accumulator equals to zero
           //currentState is the value from the cart
           //Number is used to convert the string value into int
-          (accumulator = accumulator + Number(currentState.price)),
+          (accumulator =
+            accumulator + Number(currentState.price) * currentState.qty),
         0
       )
     );
@@ -34,7 +37,69 @@ const Cart = () => {
         <div className='productContainer'>
           <ListGroup>
             {cart.map((prod) => {
-              return <span>{prod.name}</span>;
+              return (
+                <>
+                  <ListGroup.Item key={prod.id}>
+                    <Row>
+                      <Col md={2}>
+                        <Image src={prod.image} alt={prod.name} fluid rounded />
+                      </Col>
+                      <Col md={2}>
+                        <span>{prod.name}</span>
+                      </Col>
+                      <Col md={2}>${prod.price}</Col>
+                      <Col md={2}>
+                        <Rating rating={prod.rating} />
+                      </Col>
+                      <Col md={2}>
+                        <Form.Control
+                          as='select'
+                          value={prod.qty}
+                          onChange={(e) => {
+                            dispatch({
+                              type: 'CHANGE_CART_QTY',
+                              payload: {
+                                id: prod.id,
+                                qty: e.target.value,
+                              },
+                            });
+                          }}
+                        >
+                          {/* 
+                          not working due to faker.random.arrayElement is depricated 
+                          {[...Array(prod.inStock).keys()].map((x) => (
+                            <option key={x + 1}>{x + 1}</option>
+                          ))} */}
+                          <option value='1'>1</option>
+                          <option value='2'>2</option>
+                          <option value='3'>3</option>
+                          <option value='4'>4</option>
+                          <option value='5'>5</option>
+                          <option value='6'>6</option>
+                          <option value='7'>7</option>
+                          <option value='8'>8</option>
+                          <option value='9'>9</option>
+                          <option value='10'>10</option>
+                        </Form.Control>
+                      </Col>
+                      <Col md={2}>
+                        <Button
+                          type='button'
+                          variant='light'
+                          onClick={() => {
+                            dispatch({
+                              type: 'REMOVE_FROM_CART',
+                              payload: prod,
+                            });
+                          }}
+                        >
+                          <AiFillDelete fontSize='20px' />
+                        </Button>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                </>
+              );
             })}
           </ListGroup>
         </div>

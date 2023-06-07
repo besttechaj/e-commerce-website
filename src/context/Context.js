@@ -16,6 +16,7 @@ const Context = ({ children }) => {
     price: faker.commerce.price(),
     image: faker.image.urlLoremFlickr({ category: 'camera' }),
     inStock: faker.helpers.arrayElements([0, 3, 5, 6, 7]),
+
     fastDelivery: faker.datatype.boolean(),
     rating: faker.helpers.arrayElement([1, 2, 3, 4, 5]),
   }));
