@@ -28,7 +28,7 @@ const SingleProduct = (props) => {
           ) : (
             <div>4 Days Delivery</div>
           )}
-          <Rating rating={prod.ratings} />
+          <Rating rating={prod.rating} />
         </Card.Subtitle>
         {
           //.some()-> it will check wether the item is present inside cart or not ... if the item is already present inside my new cart array list then display remove from cart button else display add to cart button to add the item to my new cart array list

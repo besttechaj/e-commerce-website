@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../components/styles.css';
 import { Form, Button } from 'react-bootstrap';
 import Rating from './Rating';
 import { CartState } from '../context/Context';
 const Filters = () => {
-  // const [rate, setRate] = useState();
-
   const {
-    productState: { byStock, byFastDelivery, sort, byRating },
+    productState: { byStock, byFastDelivery, sort, byRating, searchQuery },
     productDispatch,
   } = CartState();
 
-  console.log(byStock, byFastDelivery, sort, byRating);
+  console.log(byStock, byFastDelivery, sort, byRating, searchQuery);
 
   return (
     <div className='filters'>

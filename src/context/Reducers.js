@@ -43,12 +43,14 @@ export const productReducer = (state, action) => {
       //fetching the value and storing it inside byRating
       return { ...state, byRating: action.payload };
     case 'FILTER_BY_SEARCH':
-      //setting all the above inputs to their initial state
+      //target the search input and returns its payload(data)
       return { ...state, searchQuery: action.payload };
     case 'CLEAR_FILTERS':
+      //setting all the above inputs to their initial state
+
       return {
         byStock: false,
-        byFastDekivery: false,
+        byFastDelivery: false,
         byRating: 0,
         searchQuery: '',
       };

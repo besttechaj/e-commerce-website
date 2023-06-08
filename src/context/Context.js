@@ -33,7 +33,7 @@ const Context = ({ children }) => {
   //creating another reducer for filter data part
   const [productState, productDispatch] = useReducer(productReducer, {
     byStock: false,
-    byFastDekivery: false,
+    byFastDelivery: false,
     byRating: 0,
     searchQuery: '',
   });
