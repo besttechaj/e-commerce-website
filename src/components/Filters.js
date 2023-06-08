@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 import '../components/styles.css';
 import { Form, Button } from 'react-bootstrap';
 import Rating from './Rating';
+import { CartState } from '../context/Context';
 const Filters = () => {
-  const [rate, setRate] = useState();
+  // const [rate, setRate] = useState();
+
+  const {
+    productState: { byStock, byFastDelivery, sort, byRating },
+    productDispatch,
+  } = CartState();
+
+  console.log(byStock, byFastDelivery, sort, byRating);
 
   return (
     <div className='filters'>
@@ -16,6 +24,14 @@ const Filters = () => {
           type='radio'
           name='group1'
           id={`inline-1`}
+          onChange={() => {
+            productDispatch({
+              type: 'SORT_BY_PRICE',
+              payload: 'lowToHigh',
+            });
+          }}
+          //triggering one event
+          checked={sort === 'lowToHigh' ? true : false}
         />
       </span>
       <span>
@@ -25,6 +41,14 @@ const Filters = () => {
           label='Descending'
           type='radio'
           id={`inline-2`}
+          onChange={() => {
+            productDispatch({
+              type: 'SORT_BY_PRICE',
+              payload: 'highToLow',
+            });
+          }}
+          //triggering one event
+          checked={sort === 'highToLow' ? true : false}
         />
       </span>
       <span>
@@ -34,6 +58,13 @@ const Filters = () => {
           label='Include Out Of Stock'
           type='checkbox'
           id={`inline-3`}
+          onChange={() => {
+            productDispatch({
+              type: 'FILTER_BY_STOCK',
+            });
+          }}
+          //if it is true then display checked else unchecked
+          checked={byStock}
         />
       </span>
       <span>
@@ -43,20 +74,40 @@ const Filters = () => {
           label='Fast Delivery Only'
           type='checkbox'
           id={`inline-4`}
+          onChange={() => {
+            productDispatch({
+              type: 'FILTER_BY_DELIVERY',
+            });
+          }}
+          //if it is true then display checked else unchecked
+          checked={byFastDelivery}
         />
       </span>
       <span>
         <label style={{ paddingRight: '10px' }}>Rating:</label>
         <Rating
-          rating={rate}
+          rating={byRating}
           style={{ cursor: 'pointer' }}
           //here we are receiving i as an argument hence using callback function to set rate from the Rating component
           onClick={(i) => {
-            setRate(i + 1);
+            productDispatch({
+              type: 'FILTER_BY_RATING',
+              payload: i + 1,
+            });
           }}
         />
       </span>
-      <Button variant='light'>Clear Filters</Button>
+      <Button
+        variant='light'
+        //setting all the above inputs to their initial state
+        onClick={() =>
+          productDispatch({
+            type: 'CLEAR_FILTERS',
+          })
+        }
+      >
+        Clear Filters
+      </Button>
     </div>
   );
 };
