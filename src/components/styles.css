@@ -8,12 +8,10 @@
   padding: 20px;
   flex-wrap: wrap;
   justify-content: space-around;
-  border: 2px solid red;
 }
 
 .filters {
   background-color: #343a40;
-  border: 4px solid green;
   color: white;
   padding: 20px;
   display: flex;
@@ -60,4 +58,33 @@
 
 .summary {
   width: 30%;
+}
+
+@media (max-width: 771px) {
+  .filters {
+    width: 40%;
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .filters > span {
+    font-size: 10px;
+  }
+
+  .title {
+    font-size: 18px !important;
+  }
+
+  .productContainer {
+    width: 58%;
+    padding: 0;
+  }
+
+  .search {
+    display: none;
+  }
+
+  .products {
+    width: 100%;
+  }
 }

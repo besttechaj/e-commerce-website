@@ -21,11 +21,7 @@ const Header = () => {
     productDispatch,
   } = CartState();
   return (
-    <Navbar
-      bg='dark'
-      variant='dark'
-      style={{ height: '80px', border: '2px solid red' }}
-    >
+    <Navbar bg='dark' variant='dark' style={{ height: '80px' }}>
       {/* importing Container to align all other inside a container */}
       <Container>
         {/* Here navbar.brand is our logo */}
